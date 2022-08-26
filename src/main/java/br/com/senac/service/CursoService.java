@@ -7,6 +7,7 @@ import org.hibernate.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.com.senac.entity.Aluno;
 import br.com.senac.entity.Curso;
 import br.com.senac.repository.CursoRepository;
 
@@ -17,7 +18,7 @@ public class CursoService {
 	private CursoRepository cursoRepository;
 	
 	//Buscar todos
-	public List<Curso> buscarPorId(){
+	public List<Curso> buscarTodos(){
 		return cursoRepository.findAll();
 	}
 
@@ -28,12 +29,24 @@ public class CursoService {
 	}
 	
 	//cadastrar curso
-	public Curso salvarCurso(Curso curso) {
+	public Curso salvar(Curso curso) {
 		return cursoRepository.save(curso);
 	}
-	
-	public void deletarCurso(Curso curso) {
+	//Deletar Curso
+	public void deletarPorId(Integer id) {
 		Optional<Curso> curso = cursoRepository.findById(id);
-		return cursoRepository.deleteById(id);
+		cursoRepository.deleteById(id);
+	}
+	//Atualizar Curso
+	public Curso atualizarPorId(Integer id, Curso obj) {
+		Curso curso = buscarPorId(id);
+		curso.setNome(obj.getNome());
+		return cursoRepository.save(curso);
+	}
+	//Atualizar Curso
+	public Curso atualizarCurso(Curso cursoAlterado) {
+		Curso curso = buscarPorId(cursoAlterado.getId());
+		curso.setNome(cursoAlterado.getNome());
+		return salvar(curso);
 	}
 }

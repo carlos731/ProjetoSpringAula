@@ -11,7 +11,7 @@ import br.com.senac.entity.Aluno;
 import br.com.senac.service.AlunoService;
 
 @Component
-public class Init implements ApplicationListener<ContextRefreshedEvent>{
+public class InitAluno implements ApplicationListener<ContextRefreshedEvent>{
 
 	@Autowired
 	private AlunoService alunoService;
